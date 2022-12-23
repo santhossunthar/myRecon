@@ -22,5 +22,14 @@ assetfinder --subs-only $1 | anew targets/$1/subdomains_all.txt
 
 ./subdomains_DBAdder.sh targets/$1/subdomains_all.txt $2
 
+echo "[+] Checking for alive subdomains..."
+
+cat targets/$1/subdomains_all.txt | httpx -status-code -content-type -title | anew targets/$1/subdomains_alive_temp.txt
+
+cat targets/$1/subdomains_alive_temp.txt | sed 's/\x1b\[[0-9;]*m//g' | anew targets/$1/subdomains_alive.txt
+
+rm targets/$1/subdomains_alive_temp.txt
+
+./subdomains_alive_DBAdder.sh targets/$1/subdomains_alive.txt $2
 
 
