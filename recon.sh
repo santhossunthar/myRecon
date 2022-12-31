@@ -33,7 +33,7 @@ sudo mysql $2 -e "select subdomain from alive" | tee targets/$1/subdomains_alive
 tail -n +2 targets/$1/subdomains_alive_data_temp.txt | tee targets/$1/subdomains_alive_data.txt
 
 rm targets/$1/subdomains_alive_data_temp.txt
-<<freeze
+
 while read line
 do
 
@@ -42,7 +42,7 @@ tools/byp4xx/bypass.sh $line | tee >(sed $'s/\033[[][^A-Za-z]*m//g' > targets/$1
 
 done < "targets/$1/subdomains_alive_data.txt"
 rm targets/$1/by4xx_output_temp.txt
-freeze
+
 waybackurls $1 | anew targets/$1/URLs.txt
 
 gau $1 | anew targets/$1/URLs.txt
@@ -52,7 +52,13 @@ rm targets/$1/URLs.txt
 
 ./URLs_filter.sh targets/$1/URLs_excluded.txt $1 $2
 
+cat targets/$1/directories.txt | anew targets/$1/wordlist.txt
+cat targets/$1/parameters.txt | anew targets/$1/wordlist.txt
+cat targets/$1/parameters_values.txt | anew targets/$1/wordlist.txt
 
+rm targets/$1/directories.txt targets/$1/parameters.txt targets/$1/parameters_values.txt
+
+./fuzzing_directories.sh targets/$1/subdomains_alive_data.txt $1
 
 
 
