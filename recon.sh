@@ -58,7 +58,7 @@ cat targets/$1/parameters_values.txt | anew targets/$1/wordlist.txt
 
 rm targets/$1/directories.txt targets/$1/parameters.txt targets/$1/parameters_values.txt
 
-./fuzzing_directories.sh targets/$1/subdomains_alive_data.txt $1
+./fuzzing_directories.sh targets/$1/subdomains_alive_data.txt $1 $2
 
 
 
