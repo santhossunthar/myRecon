@@ -60,8 +60,12 @@ rm targets/$1/directories.txt targets/$1/parameters.txt targets/$1/parameters_va
 
 ./fuzzing_directories.sh targets/$1/subdomains_alive_data.txt $1 $2
 
+./linkfinder.sh targets/$1/subdomains_alive_data.txt $1
+
 cat targets/$1/URLs_excluded.txt | gf lfi | qsreplace FUZZ | while read url ; do ffuf -u $url -mr "root:x" -w payloads/lfi.txt -o targets/$1/ffuf_lfi.txt ; done
 
 cat ffuf_lfi | jq '.results[].url' | tee targets/$1/URLs_lfi.txt
+
+
 
 
