@@ -33,7 +33,7 @@ sudo mysql $2 -e "select subdomain from alive" | tee targets/$1/subdomains_alive
 tail -n +2 targets/$1/subdomains_alive_data_temp.txt | tee targets/$1/subdomains_alive_data.txt
 
 rm targets/$1/subdomains_alive_data_temp.txt
-
+<<freeze
 while read line
 do
 
@@ -59,13 +59,13 @@ cat targets/$1/parameters_values.txt | anew targets/$1/wordlist.txt
 rm targets/$1/directories.txt targets/$1/parameters.txt targets/$1/parameters_values.txt
 
 ./fuzzing_directories.sh targets/$1/subdomains_alive_data.txt $1 $2
-
-./linkfinder.sh targets/$1/subdomains_alive_data.txt $1
-
+freeze
+./linkfinder.sh urls.txt $1 $2
+<<freeze
 cat targets/$1/URLs_excluded.txt | gf lfi | qsreplace FUZZ | while read url ; do ffuf -u $url -mr "root:x" -w payloads/lfi.txt -o targets/$1/ffuf_lfi.txt ; done
 
 cat ffuf_lfi | jq '.results[].url' | tee targets/$1/URLs_lfi.txt
 
-
+freeze
 
 
