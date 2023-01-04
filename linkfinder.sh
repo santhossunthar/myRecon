@@ -9,8 +9,8 @@ cat targets/$2/linkfinder_output.txt | egrep -iv ".(jpg|jpeg|gif|css|tif|tiff|pn
 rm targets/$2/linkfinder_output.txt
 
 grep 'js' targets/$2/linkfinder_output_excluded.txt | tee targets/$2/JS_links_temp.txt
-cat targets/$2/JS_links_temp.txt | grep "Running against:" | awk '{print $3}' | tee targets/$2/JS_links_.txt
-cat targets/$2/JS_links_temp.txt | grep -v "Running against:" | anew targets/$2/JS_links_.txt
+cat targets/$2/JS_links_temp.txt | grep "Running against:" | awk '{print $3}' | tee targets/$2/JS_links.txt
+cat targets/$2/JS_links_temp.txt | grep -v "Running against:" | anew targets/$2/JS_links.txt
 
 grep -v 'js' targets/$2/linkfinder_output_excluded.txt | tee targets/$2/links_without_JS_links.txt
 
