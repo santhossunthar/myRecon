@@ -60,7 +60,9 @@ rm targets/$1/directories.txt targets/$1/parameters.txt targets/$1/parameters_va
 
 ./fuzzing_directories.sh targets/$1/subdomains_alive_data.txt $1 $2
 
-./linkfinder.sh urls.txt $1 $2
+./linkfinder.sh targets/$1/subdomains_alive_data.txt $1 $2
+
+./secretfinder.sh targets/$1/subdomains_alive_data.txt $1
 
 ./relative_URL_extractor.sh targets/$1/linkfinder_JS_links.txt $1 $2
 
