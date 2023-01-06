@@ -62,9 +62,9 @@ rm targets/$1/directories.txt targets/$1/parameters.txt targets/$1/parameters_va
 
 ./linkfinder.sh targets/$1/subdomains_alive_data.txt $1 $2
 
-./secretfinder.sh targets/$1/subdomains_alive_data.txt $1
-
 ./relative_URL_extractor.sh targets/$1/linkfinder_JS_links.txt $1 $2
+
+./secretfinder.sh targets/$1/subdomains_alive_data.txt $1 $2
 
 cat targets/$1/URLs_excluded.txt | gf lfi | qsreplace FUZZ | while read url ; do ffuf -u $url -mr "root:x" -w payloads/lfi.txt -o targets/$1/ffuf_lfi.txt ; done
 
