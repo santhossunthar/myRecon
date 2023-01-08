@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo mysql -uroot -e "CREATE DATABASE if not exists $3"
 sudo mysql $3 -e "create table if not exists by4xx_HTTP_Methods(URL VARCHAR(255) NOT NULL, GET INT(4) NOT NULL, POST INT(4) NOT NULL, HEAD INT(4) NOT NULL, OPTIONS INT(4) NOT NULL, PUT INT(4) NOT NULL, TRACE INT(4) NOT NULL, TRACK INT(4) NOT NULL, CONNECT INT(4) NOT NULL, PATCH INT(4) NOT NULL)"
 
 tail -n +11 $1 | head -n 9 | tee targets/$2/by4xx_HTTP_Methods.txt

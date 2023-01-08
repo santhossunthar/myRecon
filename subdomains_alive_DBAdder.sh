@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo mysql -uroot -e "CREATE DATABASE if not exists $2"
 sudo mysql $2 -e "create table if not exists subdomain_alive(subdomain VARCHAR(255) DEFAULT '' NOT NULL, status_code INT(4) NOT NULL, content_type VARCHAR(255) DEFAULT '' NOT NULL, title VARCHAR(255) DEFAULT '' NOT NULL)"
 
 while read line
