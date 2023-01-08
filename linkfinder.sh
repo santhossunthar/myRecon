@@ -18,16 +18,16 @@ rm targets/$2/linkfinder_JS_links_temp.txt
 
 grep -Fv '.js' targets/$2/linkfinder_URLs_excluded.txt | tee targets/$2/linkfinder_links.txt
 
-sudo mysql $3 -e "create table if not exists linkfinder_js_links(link VARCHAR(255) NOT NULL)"
+sudo mysql $3 -e "create table if not exists linkfinder_js_links(link VARCHAR(255) NOT NULL, UNIQUE(link))"
 
 while read line
 do
-sudo mysql $3 -e "insert into linkfinder_js_links (link) values ('$line')"
+sudo mysql $3 -e "insert ignore into linkfinder_js_links (link) values ('$line')"
 done < "targets/$2/linkfinder_JS_links.txt"
 
-sudo mysql $3 -e "create table if not exists linkfinder_links(link VARCHAR(255) NOT NULL)"
+sudo mysql $3 -e "create table if not exists linkfinder_links(link VARCHAR(255) NOT NULL, UNIQUE(link))"
 
 while read line
 do
-sudo mysql $3 -e "insert into linkfinder_links (link) values ('$line')"
+sudo mysql $3 -e "insert ignore into linkfinder_links (link) values ('$line')"
 done < "targets/$2/linkfinder_links.txt"

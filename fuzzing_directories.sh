@@ -8,7 +8,6 @@ tail -n +3 targets/$2/fuzzed_directories.txt | tee targets/$2/fuzzed_directories
 
 while read line
 do
-
 statusCode=$(echo $line | awk '{print $1}')
 size=$(echo $line | awk '{print $2}')
 url=$(echo $line | awk '{print $3}')

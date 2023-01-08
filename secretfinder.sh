@@ -15,7 +15,7 @@ url=$(echo $line | awk -F\> '{print $1}' | sed 's|^[[:space:]]*||')
 secret=$(echo $line | awk -F\> '{print $2}' | sed -e 's|-| |' -e 's|^[[:space:]]*||')
 value=$(echo $line | awk -F\> '{print $3}' | sed -e 's|^[[:space:]]*||' -e "s|'|''|g")
 
-echo $line
 sudo mysql $3 -e "insert into secrets (url, secret, value) values ('$url', '$secret', '$value')"
+
 done < "targets/$2/secrets.txt" 
 
